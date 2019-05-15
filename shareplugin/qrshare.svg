@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 64 64"
+   xml:space="preserve"
+   sodipodi:docname="qrshare.svg"
+   width="64"
+   height="64"
+   inkscape:version="0.92.4 (unknown)">
+  <metadata>
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+      transform="scale(0.74418605)">
+    <rect
+        style="opacity:0;fill:#ffffff"
+        width="86"
+        height="86"
+        x="0"
+        y="0"/>
+    <linearGradient
+        id="SVGID_1_"
+        gradientUnits="userSpaceOnUse"
+        x1="86"
+        y1="86"
+        x2="0"
+        y2="0"
+        gradientTransform="matrix(0.9977,0,0,0.9977,-0.427,-0.2975)">
+      <stop
+          offset="0"
+          style="stop-color:#CBCBCB"
+          id="stop3"/>
+      <stop
+          offset="1"
+          style="stop-color:#FFFFFF"
+          id="stop5"/>
+    </linearGradient>
+    <path
+        style="opacity:0.8;fill:url(#SVGID_1_)"
+        d="m 85.7,84.277 c 0,0.786 -0.637,1.423 -1.423,1.423 H 1.723 C 0.937,85.7 0.3,86 0.3,84.277 V 1.723 C 0.3,0.937 0.937,0.3 1.723,0.3 h 82.553 c 0.786,0 1.423,0.637 1.423,1.423 v 82.554 z"
+        inkscape:connector-curvature="0"/>
+  </g>
+  <path
+      style="fill:#000000;fill-opacity:0.5;stroke-width:0.25"
+      d="M 40 10 L 40 18.76 L 40 18.615234 L 24 28 L 24 25 L 10 25 L 10 39 L 24 39 L 24 37 L 40 44.285156 L 40 54 L 54 54 L 54 40 L 40 40 L 40 42.318359 L 24 35 L 24 30 L 40 20.64 L 40 24 L 54 24 L 54 10 L 40 10 z M 42 12 L 52 12 L 52 22 L 42 22 L 42 12 z M 12 27 L 22 27 L 22 37 L 12 37 L 12 27 z M 42 42 L 52 42 L 52 52 L 42 52 L 42 42 z "/>
+  <path
+      style="fill:#000000;fill-opacity:0.5;stroke-width:0.25"
+      d="m 14,29 c 0,2 0,4.22 0,6 2.1782,0 3.86,0 6,0 0,-2 0,-4 0,-6 -2,0 -4.22,0 -6,0 z"
+      inkscape:connector-curvature="0"
+      sodipodi:nodetypes="ccccc"/>
+  <path
+      style="fill:#000000;fill-opacity:0.5;stroke-width:0.25"
+      d="m 44,44 c 0,2 0,4.22 0,6 2.1782,0 3.86,0 6,0 0,-2 0,-4 0,-6 -2,0 -4.22,0 -6,0 z"
+      inkscape:connector-curvature="0"
+      sodipodi:nodetypes="ccccc"/>
+  <path
+      style="fill:#000000;fill-opacity:0.5;stroke-width:0.25"
+      d="m 44,14 c 0,2 0,4.22 0,6 2.1782,0 3.86,0 6,0 0,-2 0,-4 0,-6 -2,0 -4.22,0 -6,0 z"
+      inkscape:connector-curvature="0"
+      sodipodi:nodetypes="ccccc"/>
+</svg>
