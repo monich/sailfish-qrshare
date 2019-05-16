@@ -1,5 +1,5 @@
 Name:       sailfish-qrshare
-Version:    1.0.0
+Version:    1.0.1
 Release:    1
 License:    BSD
 Summary:    Share plugin for generating QR codes
@@ -42,7 +42,7 @@ rm -rf %{buildroot}
 rm -f %{mkicon}
 
 %preun
-rm -f %{qrshare_png}
+if [ "$1" == 0 ] ; then rm -f %{qrshare_png}; fi
 
 %files
 %defattr(-,root,root,-)
