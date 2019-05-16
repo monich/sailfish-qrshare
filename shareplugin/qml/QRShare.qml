@@ -94,7 +94,9 @@ Page {
     QrCodeGenerator {
         id: generator
 
-        text: content.data
+        text: content ?
+            ('data' in content) ? content.data :
+            ('status' in content) ? content.status : "" : ""
     }
 
     Timer {
