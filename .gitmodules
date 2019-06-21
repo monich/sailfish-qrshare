@@ -4,3 +4,6 @@
 [submodule "libqrencode"]
 	path = qmlplugin/libqrencode
 	url = https://github.com/fukuchi/libqrencode.git
+[submodule "libaztec"]
+	path = qmlplugin/libaztec
+	url = https://github.com/monich/libaztec.git

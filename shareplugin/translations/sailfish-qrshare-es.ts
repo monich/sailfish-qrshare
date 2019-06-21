@@ -13,15 +13,20 @@
         <extracomment>Pulley menu item</extracomment>
         <translation>Guardar en galería</translation>
     </message>
-    <message id="qrshare-placeholder-text_too_long">
-        <source>Text is too long for QR code.</source>
-        <extracomment>Placeholder text</extracomment>
-        <translation>El texto es demasiado largo para el código QR.</translation>
-    </message>
     <message id="qrshare-placeholder-no_text">
         <source>Nothing to share.</source>
         <extracomment>Placeholder text</extracomment>
         <translation>Nada para compartir.</translation>
+    </message>
+    <message id="qrshare-placeholder-qrcode-too_long">
+        <source>Text is too long for QR code.</source>
+        <extracomment>Placeholder text</extracomment>
+        <translation>El texto es demasiado largo para el código QR.</translation>
+    </message>
+    <message id="qrshare-placeholder-aztec-too_long">
+        <source>Text is too long for Aztec code.</source>
+        <extracomment>Placeholder text</extracomment>
+        <translation type="unfinished">El texto es demasiado largo para el código Aztec.</translation>
     </message>
 </context>
 </TS>

@@ -13,11 +13,39 @@ Page {
     property string accountName
     property var shareEndDestination
 
-    property string lastSavedQrCode
+    readonly property var generators: [ qrCodeGenerator, aztecCodeGenerator ]
+    readonly property string text: content ?
+        ('data' in content) ? content.data :
+        ('status' in content) ? content.status : "" : ""
 
-    readonly property string qrCode: generator.qrcode
-    readonly property bool haveQrCode: qrCode.length > 0
-    readonly property bool needPullDownMenu: haveQrCode && qrCode !== lastSavedQrCode
+    QrCodeGenerator {
+        id: qrCodeGenerator
+
+        text: page.text
+        readonly property string name: "QR code"
+        readonly property string baseName: "qr-code"
+        //: Placeholder text
+        //% "Text is too long for QR code."
+        readonly property string textTooLong: qsTrId("qrshare-placeholder-qrcode-too_long")
+    }
+
+    AztecCodeGenerator {
+        id: aztecCodeGenerator
+
+        text: page.text
+        readonly property string name: "Aztec"
+        readonly property string baseName: "aztec-code"
+        //: Placeholder text
+        //% "Text is too long for Aztec code."
+        readonly property string textTooLong: qsTrId("qrshare-placeholder-aztec-too_long")
+    }
+
+    Timer {
+        id: startTimer
+
+        running: true
+        interval: 500
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -25,15 +53,15 @@ Page {
         PullDownMenu {
             id: menu
 
-            visible: page.needPullDownMenu
+            visible: view.currentItem && view.currentItem.needPullDownMenu
 
-            property string savedQrCode
+            property string savedCode
 
             onActiveChanged: {
-                if (!active && savedQrCode) {
+                if (!active && savedCode) {
                     // Don't save the same code twice
-                    page.lastSavedQrCode = savedQrCode
-                    savedQrCode = ""
+                    if (view.currentItem) view.currentItem.lastSavedCode = savedCode
+                    savedCode = ""
                 }
             }
 
@@ -42,67 +70,85 @@ Page {
                 //% "Save to Gallery"
                 text: qsTrId("qrshare-menu-save_to_gallery")
                 onClicked: {
-                    if (QRCodeUtils.saveToGallery(page.qrCode, "QRShare", "qrcode")) {
-                        menu.savedQrCode = page.qrCode
+                    var code = view.currentItem.code
+                    if (QRCodeUtils.saveToGallery(code, "QRShare", view.currentItem.baseName)) {
+                        menu.savedCode = code
                     }
                 }
             }
         }
 
-        Rectangle {
-            id: qrcodeRect
+        PageHeader { id: header }
 
-            color: "white"
-            visible: page.haveQrCode
-            radius: Theme.paddingMedium
+        SilicaListView {
+            id: view
+
             anchors.centerIn: parent
-            width: qrcodeImage.width + 2 * Theme.horizontalPageMargin
-            height: qrcodeImage.height + 2 * Theme.horizontalPageMargin
+            height: page.height - 2 * header.height
+            width: page.width
+            orientation: ListView.Horizontal
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            clip: true
+            model: generators
 
-            readonly property int margins: Math.round((Math.min(Screen.width, Screen.height) - Math.max(width, height))/2)
+            onCurrentIndexChanged: console.log(currentIndex)
 
-            Image {
-                id: qrcodeImage
+            onCurrentItemChanged: console.log(currentItem, currentItem.baseName)
 
-                asynchronous: true
-                anchors.centerIn: parent
-                source: page.haveQrCode ? "image://qrcode/" + page.qrCode : ""
-                width: sourceSize.width * n
-                height: sourceSize.height * n
-                smooth: false
+            delegate: Item {
+                id: delegate
 
-                readonly property int maxDisplaySize: Math.min(Screen.width, Screen.height) - 4 * Theme.horizontalPageMargin
-                readonly property int maxSourceSize: Math.max(sourceSize.width, sourceSize.height)
-                readonly property int n: maxSourceSize ? Math.floor(maxDisplaySize/maxSourceSize) : 0
+                height: view.height
+                width: view.width
+
+                property string lastSavedCode
+                readonly property var generator: modelData
+                readonly property string code: generator.code
+                readonly property string baseName: generator.baseName
+                readonly property bool haveCode: code.length > 0
+                readonly property bool needPullDownMenu: haveCode && code !== lastSavedCode
+
+                Rectangle {
+                    color: "white"
+                    visible: delegate.haveCode
+                    radius: Theme.paddingMedium
+                    anchors.centerIn: parent
+                    width: image.width + 2 * Theme.horizontalPageMargin
+                    height: image.height + 2 * Theme.horizontalPageMargin
+
+                    readonly property int margins: Math.round((Math.min(Screen.width, Screen.height) - Math.max(width, height))/2)
+
+                    Image {
+                        id: image
+
+                        asynchronous: true
+                        anchors.centerIn: parent
+                        source: delegate.haveCode ? "image://qrcode/" + delegate.code : ""
+                        width: sourceSize.width * n
+                        height: sourceSize.height * n
+                        smooth: false
+
+                        readonly property int maxDisplaySize: Math.min(Screen.width, Screen.height) - 4 * Theme.horizontalPageMargin
+                        readonly property int maxSourceSize: Math.max(sourceSize.width, sourceSize.height)
+                        readonly property int n: maxSourceSize ? Math.floor(maxDisplaySize/maxSourceSize) : 0
+                    }
+                }
+
+                ViewPlaceholder {
+                    enabled: !delegate.haveCode && !startTimer.running && !generator.running
+                    text: generator.running ? "" : generator.textTooLong
+                }
             }
         }
 
         ViewPlaceholder {
             // No need to animate opacity
             Behavior on opacity { enabled: false }
-            enabled: !page.haveQrCode && !startTimer.running && !generator.running
-            text: generator.running ? "" : generator.text ?
-                //: Placeholder text
-                //% "Text is too long for QR code."
-                qsTrId("qrshare-placeholder-text_too_long") :
-                //: Placeholder text
-                //% "Nothing to share."
-                qsTrId("qrshare-placeholder-no_text")
+            enabled: !page.text.length
+            //: Placeholder text
+            //% "Nothing to share."
+            text: qsTrId("qrshare-placeholder-no_text")
         }
-    }
-
-    QrCodeGenerator {
-        id: generator
-
-        text: content ?
-            ('data' in content) ? content.data :
-            ('status' in content) ? content.status : "" : ""
-    }
-
-    Timer {
-        id: startTimer
-
-        running: true
-        interval: 500
     }
 }

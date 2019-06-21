@@ -31,6 +31,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "HarbourAztecCodeGenerator.h"
 #include "HarbourBase32.h"
 #include "HarbourQrCodeGenerator.h"
 #include "HarbourQrCodeImageProvider.h"
@@ -94,7 +95,7 @@ QString QRCodeUtils::saveToGallery(QString aBase32, QString aSubDir, QString aBa
             if (aBaseName.isEmpty()) aBaseName = QLatin1String("qrcode");
             if (QFile::exists(destDir) || QDir(destDir).mkpath(destDir)) {
                 static const QString suffix(".png");
-                static const QString prefix(destDir + QDir::separator() + aBaseName);
+                const QString prefix(destDir + QDir::separator() + aBaseName);
                 QString destFile = prefix + suffix;
                 for (int i = 1; QFile::exists(destFile); i++) {
                     destFile = prefix + QString().sprintf("-%03d", i) + suffix;
@@ -133,6 +134,7 @@ void QRShareQmlExtensionPlugin::registerTypes(const char* aUri)
     const int v2 = 0;
     qmlRegisterSingletonType<QRCodeUtils>(aUri, v1, v2, "QRCodeUtils", QRCodeUtils::createSingleton);
     qmlRegisterType<HarbourQrCodeGenerator>(aUri, v1, v2, "QrCodeGenerator");
+    qmlRegisterType<HarbourAztecCodeGenerator>(aUri, v1, v2, "AztecCodeGenerator");
 }
 
 void QRShareQmlExtensionPlugin::initializeEngine(QQmlEngine* aEngine, const char *aUri)
