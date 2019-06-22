@@ -1,5 +1,5 @@
 Name:       sailfish-qrshare
-Version:    1.0.1
+Version:    1.0.2
 Release:    1
 License:    BSD
 Summary:    Share plugin for generating QR codes
