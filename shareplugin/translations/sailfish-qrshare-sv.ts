@@ -6,7 +6,7 @@
     <message id="qrshare-display_name">
         <source>QR Share</source>
         <extracomment>Plugin display name</extracomment>
-        <translation>Generera QR-kod</translation>
+        <translation>QR Share</translation>
     </message>
     <message id="qrshare-menu-save_to_gallery">
         <source>Save to Gallery</source>
@@ -26,7 +26,7 @@
     <message id="qrshare-placeholder-aztec-too_long">
         <source>Text is too long for Aztec code.</source>
         <extracomment>Placeholder text</extracomment>
-        <translation type="unfinished">Texten är för lång för Aztec kod.</translation>
+        <translation>Texten är för lång för Aztec-kod.</translation>
     </message>
 </context>
 </TS>
