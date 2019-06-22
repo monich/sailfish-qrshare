@@ -55,7 +55,8 @@ class QRCodeUtils : public QObject {
 public:
     QRCodeUtils(QObject* aParent);
 
-    Q_INVOKABLE QString saveToGallery(QString aBase32, QString aSubDir, QString aBaseName);
+    Q_INVOKABLE QString saveToGallery(QString aBase32, QString aSubDir,
+        QString aBaseName, int aScale);
 
     // Callback for qmlRegisterSingletonType<QRCodeUtils>
     static QObject* createSingleton(QQmlEngine* aEngine, QJSEngine* aScript);
@@ -71,7 +72,8 @@ QObject* QRCodeUtils::createSingleton(QQmlEngine* aEngine, QJSEngine*)
     return new QRCodeUtils(aEngine);
 }
 
-QString QRCodeUtils::saveToGallery(QString aBase32, QString aSubDir, QString aBaseName)
+QString QRCodeUtils::saveToGallery(QString aBase32, QString aSubDir, QString aBaseName,
+    int aScale)
 {
     const QByteArray bits(HarbourBase32::fromBase32(aBase32.toLocal8Bit()));
     HDEBUG(aBase32 << "=>" << bits.size() << "bytes");
@@ -85,6 +87,11 @@ QString QRCodeUtils::saveToGallery(QString aBase32, QString aSubDir, QString aBa
         painter.fillRect(0, 0, w, h, Qt::white);
         painter.drawImage(1, 1, qrcode);
         painter.end();
+
+        if (aScale > 1) {
+            HDEBUG(w << "x" << h << "=>" <<  (w * aScale) << "x" << (h * aScale));
+            img = img.scaledToHeight(h * aScale);
+        }
 
         // Write the file
         QString destDir = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);

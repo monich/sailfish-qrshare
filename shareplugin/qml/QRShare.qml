@@ -70,8 +70,9 @@ Page {
                 //% "Save to Gallery"
                 text: qsTrId("qrshare-menu-save_to_gallery")
                 onClicked: {
-                    var code = view.currentItem.code
-                    if (QRCodeUtils.saveToGallery(code, "QRShare", view.currentItem.baseName)) {
+                    var item = view.currentItem
+                    var code = item.code
+                    if (QRCodeUtils.saveToGallery(code, "QRShare", item.baseName, Math.min(item.scale, 5))) {
                         menu.savedCode = code
                     }
                 }
@@ -108,6 +109,7 @@ Page {
                 readonly property string baseName: generator.baseName
                 readonly property bool haveCode: code.length > 0
                 readonly property bool needPullDownMenu: haveCode && code !== lastSavedCode
+                readonly property alias scale: image.n
 
                 Rectangle {
                     color: "white"
