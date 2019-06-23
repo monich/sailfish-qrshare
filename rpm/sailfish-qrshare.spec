@@ -1,8 +1,8 @@
 Name:       sailfish-qrshare
-Version:    1.0.2
+Version:    1.0.3
 Release:    1
 License:    BSD
-Summary:    Share plugin for generating QR codes
+Summary:    Share plugin for generating QR and Aztec codes
 Group:      System/Libraries
 URL:        https://github.com/monich/sailfish-qrshare
 Source0:    %{name}-%{version}.tar.gz
