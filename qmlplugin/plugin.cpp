@@ -150,7 +150,7 @@ void QRShareQmlExtensionPlugin::initializeEngine(QQmlEngine* aEngine, const char
     aEngine->addImageProvider("qrcode", new HarbourQrCodeImageProvider);
 
     // Load translations for share UI
-    QTranslator* tr = new QTranslator(this);
+    QTranslator* tr = new QTranslator(qApp);
     const QString directory("/usr/share/sailfish-qrshare/translations");
     const QString filename("sailfish-qrshare");
     const QString prefix("-");
@@ -160,6 +160,7 @@ void QRShareQmlExtensionPlugin::initializeEngine(QQmlEngine* aEngine, const char
         qApp->installTranslator(tr);
     } else {
         HWARN("Failed to load QR Share translations");
+        delete tr;
     }
 }
 
