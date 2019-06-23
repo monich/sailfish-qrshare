@@ -93,10 +93,6 @@ Page {
             clip: true
             model: generators
 
-            onCurrentIndexChanged: console.log(currentIndex)
-
-            onCurrentItemChanged: console.log(currentItem, currentItem.baseName)
-
             delegate: Item {
                 id: delegate
 
