@@ -26,7 +26,7 @@
     <message id="qrshare-placeholder-aztec-too_long">
         <source>Text is too long for Aztec code.</source>
         <extracomment>Placeholder text</extracomment>
-        <translation type="unfinished">文本太长，无法生成Aztec代码。</translation>
+        <translation type="unfinished">文本过长，无法生成Aztec码！</translation>
     </message>
 </context>
 </TS>
