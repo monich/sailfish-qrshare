@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
@@ -12,15 +13,20 @@
         <extracomment>Pulley menu item</extracomment>
         <translation>保存到图库</translation>
     </message>
-    <message id="qrshare-placeholder-text_too_long">
-        <source>Text is too long for QR code.</source>
-        <extracomment>Placeholder text</extracomment>
-        <translation>文本过长，无法生成二维码。</translation>
-    </message>
     <message id="qrshare-placeholder-no_text">
         <source>Nothing to share.</source>
         <extracomment>Placeholder text</extracomment>
         <translation>无分享文本</translation>
+    </message>
+    <message id="qrshare-placeholder-qrcode-too_long">
+        <source>Text is too long for QR code.</source>
+        <extracomment>Placeholder text</extracomment>
+        <translation>文本过长，无法生成二维码。</translation>
+    </message>
+    <message id="qrshare-placeholder-aztec-too_long">
+        <source>Text is too long for Aztec code.</source>
+        <extracomment>Placeholder text</extracomment>
+        <translation type="unfinished">文本太长，无法生成Aztec代码。</translation>
     </message>
 </context>
 </TS>
