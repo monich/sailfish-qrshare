@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="pt_PT">
+<TS version="2.1" language="pt">
 <context>
     <name></name>
     <message id="qrshare-display_name">
@@ -26,7 +26,7 @@
     <message id="qrshare-placeholder-aztec-too_long">
         <source>Text is too long for Aztec code.</source>
         <extracomment>Placeholder text</extracomment>
-        <translation type="unfinished">Texto demasiado longo para código Aztec.</translation>
+        <translation>Texto demasiado longo para código Aztec.</translation>
     </message>
 </context>
 </TS>
