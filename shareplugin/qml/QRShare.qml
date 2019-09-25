@@ -133,9 +133,12 @@ Page {
                     }
                 }
 
-                ViewPlaceholder {
-                    enabled: !delegate.haveCode && !startTimer.running && !generator.running
+                InfoLabel {
+                    anchors.centerIn: parent
                     text: generator.running ? "" : generator.textTooLong
+                    opacity: (delegate.haveCode || startTimer.running || generator.running) ? 0 : 1
+                    visible: opacity > 0
+                    Behavior on opacity { FadeAnimation { } }
                 }
             }
         }
