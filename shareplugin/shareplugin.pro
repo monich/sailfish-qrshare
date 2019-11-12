@@ -40,14 +40,17 @@ SOURCES += \
     src/qrshareplugininfo2.cpp \
     src/qrsharetransfer.cpp
 
-OTHER_FILES += \
+QRSHARE_UI_FILES = \
     qrshare.svg \
+    qml/unhappy.svg \
     qml/QRShare.qml
+
+OTHER_FILES += $$QRSHARE_UI_FILES
 
 target.path = /usr/lib/nemo-transferengine/plugins
 INSTALLS += target
 
-shareui.files = qml/*.qml *svg
+shareui.files = $$QRSHARE_UI_FILES
 shareui.path = $$QRSHARE_UI_DIR
 INSTALLS += shareui
 

@@ -133,12 +133,31 @@ Page {
                     }
                 }
 
-                InfoLabel {
-                    anchors.centerIn: parent
-                    text: generator.running ? "" : generator.textTooLong
-                    opacity: (delegate.haveCode || startTimer.running || generator.running) ? 0 : 1
-                    visible: opacity > 0
+                Loader {
+                    readonly property bool oops: page.text.length && !delegate.haveCode && !startTimer.running && !generator.running
+                    anchors.fill: parent
+                    opacity: oops ? 1 : 0
+                    active: opacity > 0
                     Behavior on opacity { FadeAnimation { } }
+                    sourceComponent: Item {
+                        Image {
+                            source: "image://qrshare/" + Qt.resolvedUrl("unhappy.svg") + "?" + Theme.highlightColor
+                            height: Math.max(Theme.itemSizeMedium, Math.min(Theme.itemSizeHuge, label.y - Theme.paddingLarge))
+                            sourceSize.height: height
+                            visible: (y >= 0)
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                bottom: label.top
+                                bottomMargin: Theme.paddingLarge
+                            }
+                        }
+                        InfoLabel {
+                            id: label
+
+                            text: generator.textTooLong
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
                 }
             }
         }

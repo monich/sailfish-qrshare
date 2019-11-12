@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.2"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="256px"
+   height="256px"
+   viewBox="0 0 256 256"
+   xml:space="preserve"
+   sodipodi:docname="unhappy.svg"
+   inkscape:version="0.92.4 (unknown)">
+  <metadata>
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+      transform="matrix(1,0,0,-1,0,337.058)">
+    <path
+        d="M 128.02,209.039 C 83.346,209.039 47,172.694 47,128.019 h 6 c 0,41.366 33.654,75.02 75.02,75.02 41.366,0 75.02,-33.653 75.02,-75.02 h 6 c -0.001,44.675 -36.347,81.02 -81.02,81.02 z"
+        inkscape:connector-curvature="0"
+        style="fill:#ffffff" />
+  </g>
+  <g>
+    <rect
+        x="94.678"
+        y="52.587"
+        fill="#FFFFFF"
+        width="6"
+        height="32.009"/>
+  </g>
+  <g>
+    <rect
+        x="157.174"
+        y="52.587"
+        fill="#FFFFFF"
+        width="6"
+        height="32.009"/>
+  </g>
+</svg>

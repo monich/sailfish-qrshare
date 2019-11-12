@@ -33,6 +33,7 @@
 
 #include "HarbourAztecCodeGenerator.h"
 #include "HarbourBase32.h"
+#include "HarbourImageProvider.h"
 #include "HarbourQrCodeGenerator.h"
 #include "HarbourQrCodeImageProvider.h"
 #include "HarbourDebug.h"
@@ -148,6 +149,7 @@ void QRShareQmlExtensionPlugin::initializeEngine(QQmlEngine* aEngine, const char
 {
     HDEBUG(aUri);
     aEngine->addImageProvider("qrcode", new HarbourQrCodeImageProvider);
+    aEngine->addImageProvider("qrshare", new HarbourImageProvider);
 
     // Load translations for share UI
     QTranslator* tr = new QTranslator(qApp);

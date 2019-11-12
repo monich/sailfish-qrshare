@@ -49,6 +49,7 @@ if [ "$1" == 0 ] ; then rm -f %{qrshare_png}; fi
 %defattr(-,root,root,-)
 %{_libdir}/nemo-transferengine/plugins/libqrshareplugin.so
 %{qrshare_datadir}/translations/%{name}*.qm
+%{qrshare_datadir}/unhappy.svg
 %{qrshare_datadir}/*.qml
 %{qrshare_qmlplugindir}
 %{qrshare_svg}
