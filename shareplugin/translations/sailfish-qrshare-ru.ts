@@ -21,12 +21,12 @@
     <message id="qrshare-placeholder-qrcode-too_long">
         <source>Text is too long for QR code.</source>
         <extracomment>Placeholder text</extracomment>
-        <translation>Слишком много текста, в QR-код столько не поместится :(</translation>
+        <translation>Слишком много текста, в QR-код столько не поместится.</translation>
     </message>
     <message id="qrshare-placeholder-aztec-too_long">
         <source>Text is too long for Aztec code.</source>
         <extracomment>Placeholder text</extracomment>
-        <translation>Слишком много текста для кода в формате Aztec :(</translation>
+        <translation>Слишком много текста для кода в формате Aztec.</translation>
     </message>
 </context>
 </TS>
