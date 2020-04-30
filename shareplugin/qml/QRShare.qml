@@ -74,7 +74,7 @@ Page {
                 onClicked: {
                     var item = view.currentItem
                     var code = item.code
-                    if (QRCodeUtils.saveToGallery(code, "QRShare", item.baseName, Math.min(item.scaleFactor, 5))) {
+                    if (QRCodeUtils.saveToGallery(code, "QRShare", item.baseName, Math.min(item.scaleFactor, Theme.paddingSmall))) {
                         menu.savedCode = code
                     }
                 }
