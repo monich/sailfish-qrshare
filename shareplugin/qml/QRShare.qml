@@ -47,6 +47,8 @@ Page {
         interval: 500
     }
 
+    Component.onCompleted: view.currentIndex = 0
+
     SilicaFlickable {
         anchors.fill: parent
 
@@ -72,7 +74,7 @@ Page {
                 onClicked: {
                     var item = view.currentItem
                     var code = item.code
-                    if (QRCodeUtils.saveToGallery(code, "QRShare", item.baseName, Math.min(item.scale, 5))) {
+                    if (QRCodeUtils.saveToGallery(code, "QRShare", item.baseName, Math.min(item.scaleFactor, 5))) {
                         menu.savedCode = code
                     }
                 }
@@ -85,8 +87,8 @@ Page {
             id: view
 
             anchors.centerIn: parent
-            height: page.height - 2 * header.height
-            width: page.width
+            height: Math.min(parent.width, parent.height - 2 * header.height)
+            width: parent.width
             orientation: ListView.Horizontal
             snapMode: ListView.SnapOneItem
             highlightRangeMode: ListView.StrictlyEnforceRange
@@ -105,7 +107,7 @@ Page {
                 readonly property string baseName: generator.baseName
                 readonly property bool haveCode: code.length > 0
                 readonly property bool needPullDownMenu: haveCode && code !== lastSavedCode
-                readonly property alias scale: image.n
+                readonly property alias scaleFactor: image.n
 
                 Rectangle {
                     color: "white"
@@ -114,8 +116,6 @@ Page {
                     anchors.centerIn: parent
                     width: image.width + 2 * Theme.horizontalPageMargin
                     height: image.height + 2 * Theme.horizontalPageMargin
-
-                    readonly property int margins: Math.round((Math.min(Screen.width, Screen.height) - Math.max(width, height))/2)
 
                     Image {
                         id: image
@@ -127,7 +127,7 @@ Page {
                         height: sourceSize.height * n
                         smooth: false
 
-                        readonly property int maxDisplaySize: Math.min(Screen.width, Screen.height) - 4 * Theme.horizontalPageMargin
+                        readonly property int maxDisplaySize: Math.min(delegate.width - 2 * Theme.horizontalPageMargin, delegate.height) - 4 * Theme.horizontalPageMargin
                         readonly property int maxSourceSize: Math.max(sourceSize.width, sourceSize.height)
                         readonly property int n: maxSourceSize ? Math.floor(maxDisplaySize/maxSourceSize) : 0
                     }
