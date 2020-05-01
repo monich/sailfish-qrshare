@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Jolla Ltd.
- * Copyright (C) 2019 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2020 Jolla Ltd.
+ * Copyright (C) 2019-2020 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -39,6 +39,7 @@
 #include <QCoreApplication>
 #include <QTranslator>
 #include <QLocale>
+#include <QDir>
 #include <QDebug>
 
 #include <rpm/rpmlib.h>
@@ -86,6 +87,35 @@ QRSharePlugin::QRSharePlugin() :
             }
         }
         rpmtsFree(ts);
+    } else {
+        // Check what's the latest librpm.so.x in /usr/lib
+        QDir dir("/usr/lib");
+        const QString prefix("librpm.so.");
+        QFileInfoList list = dir.entryInfoList(QDir::Files |
+            QDir::NoDotAndDotDot, QDir::NoSort);
+
+        int i, x = -1;
+        const int n = list.count();
+        for (i = 0; i < n; i++) {
+            const QFileInfo& info = list.at(i);
+            if (info.isFile()) {
+                const QString name(info.fileName());
+                if (name.startsWith(prefix)) {
+                    QString suffix(name.mid(prefix.length()));
+                    const int dot = suffix.indexOf('.');
+                    if (dot > 0) suffix.truncate(dot);
+                    bool isNumber = false;
+                    const int x2 = suffix.toInt(&isNumber);
+                    if (isNumber && x2 >= x) {
+                        x = x2;
+                    }
+                }
+            }
+        }
+        if (x >= 0 && x < 8) {
+            qDebug() << "Using API v1";
+            iCreatePluginInfoFunc = QRShareCreatePluginInfo1;
+        }
     }
 }
 
