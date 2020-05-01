@@ -1,6 +1,7 @@
 TEMPLATE = lib
 TARGET = qrshareplugin
-CONFIG += plugin
+CONFIG += plugin link_pkgconfig
+PKGCONFIG += nemotransferengine-qt5
 
 NAME = sailfish-qrshare
 QRSHARE_UI_DIR = /usr/share/$$NAME

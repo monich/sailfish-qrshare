@@ -13,6 +13,7 @@ BuildRequires: pkgconfig(Qt5Svg)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(nemotransferengine-qt5)
 BuildRequires: pkgconfig(rpm)
 BuildRequires: pkgconfig(popt)
 BuildRequires: qt5-qttools
