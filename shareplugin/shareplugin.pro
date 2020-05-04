@@ -7,7 +7,9 @@ NAME = sailfish-qrshare
 QRSHARE_UI_DIR = /usr/share/$$NAME
 QRSHARE_TRANSLATIONS_DIR = $${QRSHARE_UI_DIR}/translations
 
-QMAKE_CXXFLAGS += -Wno-unused-parameter
+QMAKE_CXXFLAGS += -Wno-unused-parameter -fvisibility=hidden
+QMAKE_CFLAGS += -fvisibility=hidden
+QMAKE_LFLAGS += -fvisibility=hidden
 
 INCLUDEPATH += \
     transferengine

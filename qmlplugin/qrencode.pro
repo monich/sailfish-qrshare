@@ -3,6 +3,8 @@ CONFIG += static
 TARGET = qrencode
 QT-= gui
 
+QMAKE_CFLAGS += -fvisibility=hidden
+
 SRC_DIR = $${_PRO_FILE_PWD_}/libqrencode
 
 MAJOR_VERSION = 4

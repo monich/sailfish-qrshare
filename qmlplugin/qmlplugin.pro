@@ -4,8 +4,9 @@ CONFIG += plugin link_pkgconfig
 QT += qml quick
 PKGCONFIG += glib-2.0
 
-QMAKE_CXXFLAGS += -Wno-unused-parameter
-QMAKE_CFLAGS += -std=c99 -Wno-sign-compare
+QMAKE_CXXFLAGS += -Wno-unused-parameter -fvisibility=hidden
+QMAKE_CFLAGS += -std=c99 -Wno-sign-compare -fvisibility=hidden
+QMAKE_LFLAGS += -fvisibility=hidden
 
 CONFIG(debug, debug|release) {
     DEFINES += DEBUG HARBOUR_DEBUG
