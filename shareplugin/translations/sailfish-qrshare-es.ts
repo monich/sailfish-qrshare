@@ -6,7 +6,7 @@
     <message id="qrshare-display_name">
         <source>QR Share</source>
         <extracomment>Plugin display name</extracomment>
-        <translation>Generar código QR</translation>
+        <translation>Código QR</translation>
     </message>
     <message id="qrshare-menu-save_to_gallery">
         <source>Save to Gallery</source>
