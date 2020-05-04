@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Jolla Ltd.
- * Copyright (C) 2019 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2020 Jolla Ltd.
+ * Copyright (C) 2019-2020 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -31,11 +31,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "qrshare.h"
-#include "qrshareplugininfo.h"
-
-#include "transfermethodinfo1.h"
+#define TRANSFER_METHOD_INFO_VERSION 1
+#include "transfermethodinfo.h"
 #include "transferplugininfo.h"
+#include "qrshareplugininfo.h"
+#include "qrshare.h"
 
 class QRSharePluginInfo1 : public TransferPluginInfo {
 public:

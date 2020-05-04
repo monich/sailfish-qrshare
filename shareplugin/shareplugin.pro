@@ -25,8 +25,7 @@ CONFIG(debug, debug|release) {
 
 OTHER_FILES += \
     transferengine/mediatransferinterface.h \
-    transferengine/transfermethodinfo1.h \
-    transferengine/transfermethodinfo2.h \
+    transferengine/transfermethodinfo.h \
     transferengine/transferplugininfo.h \
     transferengine/transferplugininterface.h
 
