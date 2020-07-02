@@ -49,7 +49,7 @@ QRSHARE_UI_FILES = \
 
 OTHER_FILES += $$QRSHARE_UI_FILES
 
-target.path = /usr/lib/nemo-transferengine/plugins
+target.path = $$[QT_INSTALL_LIBS]/nemo-transferengine/plugins
 INSTALLS += target
 
 shareui.files = $$QRSHARE_UI_FILES
