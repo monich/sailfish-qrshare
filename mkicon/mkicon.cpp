@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Jolla Ltd.
- * Copyright (C) 2019 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2020 Jolla Ltd.
+ * Copyright (C) 2019-2020 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -43,10 +43,16 @@
 #  include <silicatheme.h>
 #else
 #  include <dlfcn.h>
-#  define SILICA_SO "/usr/lib/libsailfishsilica.so.1"
+#  ifdef __aarch64__
+#    define LIBDIR "/usr/lib64"
+#  else
+#    define LIBDIR "/usr/lib"
+#  endif
+
+#  define SILICA_SO LIBDIR "/libsailfishsilica.so.1"
 typedef QObject* (*SilicaInstanceFunc)(void);
 typedef qreal (*SilicaIconSizeMediumFunc)(QObject*);
-#endif
+#endif // HAVE_SILICA
 
 // Converts SVGs to PNGs of the size Theme.iconSizeMedium
 int main(int argc, char* argv[])
@@ -95,7 +101,7 @@ int main(int argc, char* argv[])
                     qWarning() << "Failed to save" << qPrintable(file);
                 }
             } else {
-                qWarning() << "Not a valid DVG file:" << qPrintable(file);
+                qWarning() << "Not a valid SVG file:" << qPrintable(file);
             }
         }
         return 0;
