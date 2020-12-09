@@ -36,7 +36,6 @@
 #include <QImage>
 #include <QPainter>
 #include <QSvgRenderer>
-#include <QGuiApplication>
 #include <QDebug>
 
 #ifdef HAVE_SILICA
@@ -57,9 +56,6 @@ typedef qreal (*SilicaIconSizeMediumFunc)(QObject*);
 // Converts SVGs to PNGs of the size Theme.iconSizeMedium
 int main(int argc, char* argv[])
 {
-    setenv("QT_QPA_PLATFORM", "minimal", 1);
-    QGuiApplication app(argc, argv);
-
 #ifdef HAVE_SILICA
     const int size = Silica::Theme::instance()->iconSizeMedium();
 #else
