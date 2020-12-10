@@ -19,7 +19,8 @@ BuildRequires: pkgconfig(popt)
 BuildRequires: qt5-qttools
 BuildRequires: qt5-qttools-linguist
 
-%define qrshare_datadir  %{_datadir}/%{name}
+%define qrshare_datadir_old /usr/share/sailfish-qrshare/
+%define qrshare_datadir /usr/share/nemo-transferengine/openrepos-qrshare
 %define qrshare_svg %{qrshare_datadir}/qrshare.svg
 %define qrshare_png %{qrshare_datadir}/qrshare.png
 %define qrshare_qmlplugindir %{_libdir}/qt5/qml/com/monich/qrshare
@@ -46,10 +47,16 @@ rm -f %{mkicon}
 %preun
 if [ "$1" == 0 ] ; then rm -f %{qrshare_png}; fi
 
+%posttrans
+rm -f %{qrshare_datadir_old}/qrshare.png
+if  [ -d %{qrshare_datadir_old}/translations ] ; then rmdir %{qrshare_datadir_old}/translations || : ; fi
+if  [ -d %{qrshare_datadir_old} ] ; then rmdir %{qrshare_datadir_old} || : ; fi
+
 %files
 %defattr(-,root,root,-)
+%dir %{qrshare_datadir}
 %{_libdir}/nemo-transferengine/plugins/libqrshareplugin.so
-%{qrshare_datadir}/translations/%{name}*.qm
+%{qrshare_datadir}/translations
 %{qrshare_datadir}/unhappy.svg
 %{qrshare_datadir}/*.qml
 %{qrshare_qmlplugindir}

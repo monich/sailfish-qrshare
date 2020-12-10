@@ -151,8 +151,8 @@ void QRShareQmlExtensionPlugin::initializeEngine(QQmlEngine* aEngine, const char
 
     // Load translations for share UI
     QTranslator* tr = new QTranslator(qApp);
-    const QString directory("/usr/share/sailfish-qrshare/translations");
-    const QString filename("sailfish-qrshare");
+    const QString filename(QRSHARE_TRANSLATIONS_FILE);
+    const QString directory(QRSHARE_TRANSLATIONS_DIR);
     const QString prefix("-");
     const QString suffix(".qm");
     if (tr->load(QLocale(), filename, prefix, directory, suffix) ||

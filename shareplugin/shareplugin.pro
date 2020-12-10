@@ -3,9 +3,7 @@ TARGET = qrshareplugin
 CONFIG += plugin link_pkgconfig
 PKGCONFIG += nemotransferengine-qt5
 
-NAME = sailfish-qrshare
-QRSHARE_UI_DIR = /usr/share/$$NAME
-QRSHARE_TRANSLATIONS_DIR = $${QRSHARE_UI_DIR}/translations
+include(../config.pri)
 
 QMAKE_CXXFLAGS += -Wno-unused-parameter -fvisibility=hidden
 QMAKE_CFLAGS += -fvisibility=hidden
@@ -16,7 +14,7 @@ INCLUDEPATH += \
 
 DEFINES += \
     QRSHARE_UI_DIR=\\\"$$QRSHARE_UI_DIR\\\" \
-    QRSHARE_TRANSLATIONS_FILE=\\\"$$NAME\\\" \
+    QRSHARE_TRANSLATIONS_FILE=\\\"$$QRSHARE_TRANSLATIONS_FILE\\\" \
     QRSHARE_TRANSLATIONS_DIR=\\\"$$QRSHARE_TRANSLATIONS_DIR\\\"
 
 CONFIG(debug, debug|release) {
@@ -95,9 +93,9 @@ defineTest(addTrFile) {
 
 LANGUAGES = cs es fr pl pt ru sv zh_CN hu
 
-addTrFile($$NAME)
+addTrFile($$QRSHARE_TRANSLATIONS_FILE)
 for(l, LANGUAGES) {
-    addTrFile($${NAME}-$$l)
+    addTrFile($${QRSHARE_TRANSLATIONS_FILE}-$$l)
 }
 
 qm.path = $$QRSHARE_TRANSLATIONS_DIR

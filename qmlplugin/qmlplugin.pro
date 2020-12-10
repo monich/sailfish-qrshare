@@ -12,6 +12,12 @@ CONFIG(debug, debug|release) {
     DEFINES += DEBUG HARBOUR_DEBUG
 }
 
+include(../config.pri)
+
+DEFINES += \
+    QRSHARE_TRANSLATIONS_FILE=\\\"$$QRSHARE_TRANSLATIONS_FILE\\\" \
+    QRSHARE_TRANSLATIONS_DIR=\\\"$$QRSHARE_TRANSLATIONS_DIR\\\"
+
 # Directories
 HARBOUR_LIB_DIR = $${_PRO_FILE_PWD_}/harbour-lib
 HARBOUR_LIB_INCLUDE = $${HARBOUR_LIB_DIR}/include
