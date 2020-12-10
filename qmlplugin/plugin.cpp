@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Jolla Ltd.
- * Copyright (C) 2019 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2020 Jolla Ltd.
+ * Copyright (C) 2019-2020 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -33,7 +33,6 @@
 
 #include "HarbourAztecCodeGenerator.h"
 #include "HarbourBase32.h"
-#include "HarbourImageProvider.h"
 #include "HarbourQrCodeGenerator.h"
 #include "HarbourQrCodeImageProvider.h"
 #include "HarbourDebug.h"
@@ -149,7 +148,6 @@ void QRShareQmlExtensionPlugin::initializeEngine(QQmlEngine* aEngine, const char
 {
     HDEBUG(aUri);
     aEngine->addImageProvider("qrcode", new HarbourQrCodeImageProvider);
-    aEngine->addImageProvider("qrshare", new HarbourImageProvider);
 
     // Load translations for share UI
     QTranslator* tr = new QTranslator(qApp);

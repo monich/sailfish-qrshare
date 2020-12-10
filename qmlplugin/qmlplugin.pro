@@ -33,7 +33,6 @@ HEADERS += \
     $${HARBOUR_LIB_INCLUDE}/HarbourAztecCodeGenerator.h \
     $${HARBOUR_LIB_INCLUDE}/HarbourBase32.h \
     $${HARBOUR_LIB_INCLUDE}/HarbourDebug.h \
-    $${HARBOUR_LIB_INCLUDE}/HarbourImageProvider.h \
     $${HARBOUR_LIB_INCLUDE}/HarbourQrCodeGenerator.h \
     $${HARBOUR_LIB_INCLUDE}/HarbourQrCodeImageProvider.h \
     $${HARBOUR_LIB_INCLUDE}/HarbourSystem.h \
@@ -43,7 +42,6 @@ HEADERS += \
 SOURCES += \
     $${HARBOUR_LIB_SRC}/HarbourAztecCodeGenerator.cpp \
     $${HARBOUR_LIB_SRC}/HarbourBase32.cpp \
-    $${HARBOUR_LIB_SRC}/HarbourImageProvider.cpp \
     $${HARBOUR_LIB_SRC}/HarbourQrCodeGenerator.cpp \
     $${HARBOUR_LIB_SRC}/HarbourQrCodeImageProvider.cpp \
     $${HARBOUR_LIB_SRC}/HarbourSystem.cpp \
