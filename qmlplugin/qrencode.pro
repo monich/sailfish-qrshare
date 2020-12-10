@@ -8,8 +8,8 @@ QMAKE_CFLAGS += -fvisibility=hidden
 SRC_DIR = $${_PRO_FILE_PWD_}/libqrencode
 
 MAJOR_VERSION = 4
-MINOR_VERSION = 0
-MICRO_VERSION = 2
+MINOR_VERSION = 1
+MICRO_VERSION = 1
 
 DEFINES += \
     STATIC_IN_RELEASE=static \
