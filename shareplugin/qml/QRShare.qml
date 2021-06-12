@@ -2,21 +2,18 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import com.monich.qrshare 1.0
 
-Page {
+Item {
     id: page
 
-    property url source
     property variant content: ({})
-    property string methodId
-    property string displayName
-    property int accountId
-    property string accountName
-    property var shareEndDestination
+    property real verticalMargins
+    property bool hideInactiveMenu
+    property alias menuWidth: menu.width
 
     readonly property var generators: [ qrCodeGenerator, aztecCodeGenerator ]
-    readonly property string text: content ?
+    readonly property string text:
         ('data' in content) ? content.data :
-        ('status' in content) ? content.status : "" : ""
+        ('status' in content) ? content.status : ""
 
     QrCodeGenerator {
         id: qrCodeGenerator
@@ -56,6 +53,9 @@ Page {
             id: menu
 
             visible: view.currentItem && view.currentItem.needPullDownMenu
+            opacity: (active || !hideInactiveMenu) ? 1 : 0
+
+            Behavior on opacity { FadeAnimation { } }
 
             property string savedCode
 
@@ -81,13 +81,11 @@ Page {
             }
         }
 
-        PageHeader { id: header }
-
         SilicaListView {
             id: view
 
             anchors.centerIn: parent
-            height: Math.min(parent.width, parent.height - 2 * header.height)
+            height: Math.min(parent.width, parent.height - 2 * verticalMargins)
             width: parent.width
             orientation: ListView.Horizontal
             snapMode: ListView.SnapOneItem
@@ -183,7 +181,7 @@ Page {
                             id: label
 
                             text: generator.textTooLong
-                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.top: parent.verticalCenter
                         }
                     }
                 }

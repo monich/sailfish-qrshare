@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2020 Jolla Ltd.
- * Copyright (C) 2019-2020 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2021 Jolla Ltd.
+ * Copyright (C) 2019-2021 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -42,7 +42,7 @@
 
 class QRSharePluginInfo2 : public TransferPluginInfo {
 public:
-    QRSharePluginInfo2();
+    QRSharePluginInfo2(const char* aQmlPath);
 
     QList<TransferMethodInfo> info() const Q_DECL_OVERRIDE;
     void query() Q_DECL_OVERRIDE;
@@ -52,7 +52,7 @@ private:
     QList<TransferMethodInfo> iInfoList;
 };
 
-QRSharePluginInfo2::QRSharePluginInfo2()
+QRSharePluginInfo2::QRSharePluginInfo2(const char* aQmlPath)
 {
     TransferMethodInfo info;
     QFileInfo png(QRSHARE_ICON_PNG);
@@ -61,7 +61,7 @@ QRSharePluginInfo2::QRSharePluginInfo2()
     //% "QR Share"
     info.displayName = qtTrId("qrshare-display_name");
     info.methodId = QRSHARE_PLUGIN_ID;
-    info.shareUIPath = QRSHARE_UI_PATH;
+    info.shareUIPath = aQmlPath;
     info.capabilitities.append("text/*");
     info.accountIcon = QUrl::fromLocalFile(png.exists() ?
         png.absoluteFilePath() : QString(QRSHARE_ICON_SVG)).toString();
@@ -84,7 +84,14 @@ bool QRSharePluginInfo2::ready() const
     return true;
 }
 
-TransferPluginInfo* QRShareCreatePluginInfo2()
+TransferPluginInfo* QRShareCreatePluginInfo2InProcess()
 {
-    return new QRSharePluginInfo2;
+    // In-process sharing
+    return new QRSharePluginInfo2(QRSHARE_PAGE_PATH);
+}
+
+TransferPluginInfo* QRShareCreatePluginInfo2OutOfProcess()
+{
+    // Out-of-process sharing (Sailfish OS >= 4.2.0)
+    return new QRSharePluginInfo2(QRSHARE_ITEM_PATH);
 }

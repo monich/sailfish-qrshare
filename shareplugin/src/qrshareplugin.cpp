@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2020 Jolla Ltd.
- * Copyright (C) 2019-2020 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2021 Jolla Ltd.
+ * Copyright (C) 2019-2021 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -47,8 +47,37 @@
 #include <rpm/rpmts.h>
 #include <rpm/rpmdb.h>
 
+static QVector<uint> getPackageVersion(rpmts aRpmTs, const char* aPackage)
+{
+    QVector<uint> version;
+    rpmdbMatchIterator mi = rpmtsInitIterator(aRpmTs, RPMDBI_NAME, aPackage, 0);
+    if (mi) {
+        Header h = rpmdbNextIterator(mi);
+        if (h) {
+            const char* v = headerGetString(h, RPMTAG_VERSION);
+            if (v) {
+                qDebug() << aPackage << v;
+                const QStringList parts(QString(v).split('.', QString::SkipEmptyParts));
+                const int n = qMin(parts.count(),3);
+                for (int i = 0; i < n; i++) {
+                    const QString part(parts.at(i));
+                    bool ok = false;
+                    int val = part.toUInt(&ok);
+                    if (ok) {
+                        version.append(val);
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        rpmdbFreeIterator(mi);
+    }
+    return version;
+}
+
 QRSharePlugin::QRSharePlugin() :
-    iCreatePluginInfoFunc(QRShareCreatePluginInfo2)
+    iCreatePluginInfoFunc(QRShareCreatePluginInfo2OutOfProcess)
 {
     // Load translations
     QTranslator* tr = new QTranslator(this);
@@ -67,26 +96,23 @@ QRSharePlugin::QRSharePlugin() :
 
     // Figure out which version of plugin API is expected from us
     if (rpmReadConfigFiles(NULL, NULL) == 0) {
-        const char* name = "nemo-transferengine-qt5";
         rpmts ts = rpmtsCreate();
         if (ts) {
-            rpmdbMatchIterator mi = rpmtsInitIterator(ts, RPMDBI_NAME, name, 0);
-            if (mi) {
-                Header h = rpmdbNextIterator(mi);
-                if (h) {
-                    const char* v = headerGetString(h, RPMTAG_VERSION);
-                    if (v) {
-                        qDebug() << name << v;
-                        // API break at 0.2.0
-                        if (v[0] == '0' && v[1] == '.' && v[2] < '2') {
-                            iCreatePluginInfoFunc = QRShareCreatePluginInfo1;
-                        }
-                    }
+            // Detect native transferengine plugin API break
+            QVector<uint> v = getPackageVersion(ts, "nemo-transferengine-qt5");
+            // API break at 0.2.0
+            if (v.count() >= 2 && v.at(0) == 0 && v.at(1) < 2) {
+                iCreatePluginInfoFunc = QRShareCreatePluginInfo1;
+            } else {
+                // Detect QML API break
+                v = getPackageVersion(ts, "declarative-transferengine-qt5");
+                // API break at 0.4.0
+                if (v.count() >= 2 && v.at(0) == 0 && v.at(1) < 4) {
+                    iCreatePluginInfoFunc = QRShareCreatePluginInfo2InProcess;
                 }
-                rpmdbFreeIterator(mi);
             }
+            rpmtsFree(ts);
         }
-        rpmtsFree(ts);
     } else {
         // Check what's the latest librpm.so.x in /usr/lib
         QDir dir("/usr/lib");

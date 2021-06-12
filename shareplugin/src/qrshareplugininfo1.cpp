@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2020 Jolla Ltd.
- * Copyright (C) 2019-2020 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2021 Jolla Ltd.
+ * Copyright (C) 2019-2021 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -57,7 +57,7 @@ QRSharePluginInfo1::QRSharePluginInfo1()
     //% "QR Share"
     info.displayName = qtTrId("qrshare-display_name");
     info.methodId = QRSHARE_PLUGIN_ID;
-    info.shareUIPath = QRSHARE_UI_PATH;
+    info.shareUIPath = QRSHARE_PAGE_PATH;
     info.capabilitities.append("text/*");
 
     iInfoList.append(info);

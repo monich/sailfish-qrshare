@@ -43,7 +43,7 @@ SOURCES += \
 QRSHARE_UI_FILES = \
     qrshare.svg \
     qml/unhappy.svg \
-    qml/QRShare.qml
+    qml/*.qml
 
 OTHER_FILES += $$QRSHARE_UI_FILES
 

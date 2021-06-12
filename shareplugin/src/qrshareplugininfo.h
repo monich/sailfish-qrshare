@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Jolla Ltd.
- * Copyright (C) 2019 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2021 Jolla Ltd.
+ * Copyright (C) 2019-2021 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -37,6 +37,7 @@
 class TransferPluginInfo;
 
 TransferPluginInfo* QRShareCreatePluginInfo1();
-TransferPluginInfo* QRShareCreatePluginInfo2();
+TransferPluginInfo* QRShareCreatePluginInfo2InProcess();
+TransferPluginInfo* QRShareCreatePluginInfo2OutOfProcess();
 
 #endif // QRSHARE_PLUGIN_INFO_H

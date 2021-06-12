@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Jolla Ltd.
- * Copyright (C) 2019 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2021 Jolla Ltd.
+ * Copyright (C) 2019-2021 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -35,7 +35,8 @@
 #define QRSHARE_H
 
 #define QRSHARE_PLUGIN_ID "QRShare"
-#define QRSHARE_UI_PATH QRSHARE_UI_DIR "/QRShare.qml"
+#define QRSHARE_PAGE_PATH QRSHARE_UI_DIR "/QRSharePage.qml"
+#define QRSHARE_ITEM_PATH QRSHARE_UI_DIR "/QRShareItem.qml"
 #define QRSHARE_ICON_PNG QRSHARE_UI_DIR "/qrshare.png"
 #define QRSHARE_ICON_SVG QRSHARE_UI_DIR "/qrshare.svg"
 
