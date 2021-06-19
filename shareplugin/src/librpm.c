@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Jolla Ltd.
- * Copyright (C) 2019 Slava Monich <slava@monich.com>
+ * Copyright (C) 2019-2021 Jolla Ltd.
+ * Copyright (C) 2019-2021 Slava Monich <slava@monich.com>
  *
  * You may use this file under the terms of BSD license as follows:
  *
@@ -56,7 +56,17 @@
  * newer releases), we just assume the new plugin API and don't really
  * need to know the exact transfer-engine version (until API changes again)
  */
-#define LIBRPM_SO            "/usr/lib/librpm.so.8"
+
+#ifndef LIBDIR
+#  ifdef __aarch64__
+#    define LIBDIR "/usr/lib64"
+#  else
+#    define LIBDIR "/usr/lib"
+#  endif
+#  pragma message("Assuming LIBDIR=" LIBDIR)
+#endif
+
+#define LIBRPM_SO            LIBDIR "/librpm.so.8"
 #define LIBRPM_NUM_FUNCTIONS (sizeof(librpm_names)/sizeof(librpm_names[0]))
 #define LIBRPM_NO_HANDLE     ((void*)-1)
 
