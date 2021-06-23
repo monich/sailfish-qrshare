@@ -39,39 +39,63 @@
 #include <QCoreApplication>
 #include <QTranslator>
 #include <QLocale>
-#include <QDir>
 #include <QDebug>
 
-#include <rpm/rpmlib.h>
-#include <rpm/header.h>
-#include <rpm/rpmts.h>
-#include <rpm/rpmdb.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
-static QVector<uint> getPackageVersion(rpmts aRpmTs, const char* aPackage)
+static QVector<uint> getPackageVersion(const char* aPackage)
 {
     QVector<uint> version;
-    rpmdbMatchIterator mi = rpmtsInitIterator(aRpmTs, RPMDBI_NAME, aPackage, 0);
-    if (mi) {
-        Header h = rpmdbNextIterator(mi);
-        if (h) {
-            const char* v = headerGetString(h, RPMTAG_VERSION);
-            if (v) {
-                qDebug() << aPackage << v;
-                const QStringList parts(QString(v).split('.', QString::SkipEmptyParts));
-                const int n = qMin(parts.count(),3);
-                for (int i = 0; i < n; i++) {
-                    const QString part(parts.at(i));
-                    bool ok = false;
-                    int val = part.toUInt(&ok);
-                    if (ok) {
-                        version.append(val);
-                    } else {
-                        break;
-                    }
+    int fds[2];
+    if (pipe(fds) == 0) {
+        pid_t pid = fork();
+        if (!pid) {
+            const char* argv[6];
+            argv[0] = "rpm";
+            argv[1] = "-q";
+            argv[2] = "--qf";
+            argv[3] = "%{version}";
+            argv[4] = aPackage;
+            argv[5] = NULL;
+            while ((dup2(fds[1], STDOUT_FILENO) == -1) && (errno == EINTR));
+            execvp(argv[0], (char**)argv);
+            exit(1);
+        }
+        close(fds[1]);
+
+        // There shouldn't be much output
+        QByteArray out;
+        const int chunk = 16;
+        ssize_t n = 0;
+        do {
+            const int size = out.size();
+            out.resize(size + chunk);
+            while ((n = read(fds[0], out.data() + size, chunk)) == -1 && (errno == EINTR));
+            out.resize(size + qMax(n, (ssize_t)0));
+        } while (n > 0);
+
+        // Parse the version
+        if (out.size() > 0) {
+            const char* v = out.constData();
+            qDebug() << aPackage << v;
+            const QStringList parts(QString(v).split('.', QString::SkipEmptyParts));
+            const int n = qMin(parts.count(),3);
+            for (int i = 0; i < n; i++) {
+                const QString part(parts.at(i));
+                bool ok = false;
+                int val = part.toUInt(&ok);
+                if (ok) {
+                    version.append(val);
+                } else {
+                    break;
                 }
             }
         }
-        rpmdbFreeIterator(mi);
+        waitpid(pid, NULL, 0);
+        close(fds[0]);
     }
     return version;
 }
@@ -95,52 +119,17 @@ QRSharePlugin::QRSharePlugin() :
     }
 
     // Figure out which version of plugin API is expected from us
-    if (rpmReadConfigFiles(NULL, NULL) == 0) {
-        rpmts ts = rpmtsCreate();
-        if (ts) {
-            // Detect native transferengine plugin API break
-            QVector<uint> v = getPackageVersion(ts, "nemo-transferengine-qt5");
-            // API break at 0.2.0
-            if (v.count() >= 2 && v.at(0) == 0 && v.at(1) < 2) {
-                iCreatePluginInfoFunc = QRShareCreatePluginInfo1;
-            } else {
-                // Detect QML API break
-                v = getPackageVersion(ts, "declarative-transferengine-qt5");
-                // API break at 0.4.0
-                if (v.count() >= 2 && v.at(0) == 0 && v.at(1) < 4) {
-                    iCreatePluginInfoFunc = QRShareCreatePluginInfo2InProcess;
-                }
-            }
-            rpmtsFree(ts);
-        }
+    // Detect native transferengine plugin API break
+    QVector<uint> v = getPackageVersion("nemo-transferengine-qt5");
+    // API break at 0.2.0
+    if (v.count() >= 2 && v.at(0) == 0 && v.at(1) < 2) {
+        iCreatePluginInfoFunc = QRShareCreatePluginInfo1;
     } else {
-        // Check what's the latest librpm.so.x in /usr/lib
-        QDir dir("/usr/lib");
-        const QString prefix("librpm.so.");
-        QFileInfoList list = dir.entryInfoList(QDir::Files |
-            QDir::NoDotAndDotDot, QDir::NoSort);
-
-        int i, x = -1;
-        const int n = list.count();
-        for (i = 0; i < n; i++) {
-            const QFileInfo& info = list.at(i);
-            if (info.isFile()) {
-                const QString name(info.fileName());
-                if (name.startsWith(prefix)) {
-                    QString suffix(name.mid(prefix.length()));
-                    const int dot = suffix.indexOf('.');
-                    if (dot > 0) suffix.truncate(dot);
-                    bool isNumber = false;
-                    const int x2 = suffix.toInt(&isNumber);
-                    if (isNumber && x2 >= x) {
-                        x = x2;
-                    }
-                }
-            }
-        }
-        if (x >= 0 && x < 8) {
-            qDebug() << "Using API v1";
-            iCreatePluginInfoFunc = QRShareCreatePluginInfo1;
+        // Detect QML API break
+        v = getPackageVersion("declarative-transferengine-qt5");
+        // API break at 0.4.0
+        if (v.count() >= 2 && v.at(0) == 0 && v.at(1) < 4) {
+            iCreatePluginInfoFunc = QRShareCreatePluginInfo2InProcess;
         }
     }
 }

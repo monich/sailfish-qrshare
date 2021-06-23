@@ -34,7 +34,6 @@ HEADERS += \
     src/qrsharetransfer.h
 
 SOURCES += \
-    src/librpm.c \
     src/qrshareplugin.cpp \
     src/qrshareplugininfo1.cpp \
     src/qrshareplugininfo2.cpp \
