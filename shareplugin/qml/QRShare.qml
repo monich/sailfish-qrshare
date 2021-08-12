@@ -19,6 +19,7 @@ Item {
         id: qrCodeGenerator
 
         text: page.text
+        ecLevel: QrCodeGenerator.ECLevelLowest
         readonly property string name: "QR code"
         readonly property string baseName: "qr-code"
         //: Placeholder text
@@ -30,6 +31,7 @@ Item {
         id: aztecCodeGenerator
 
         text: page.text
+        ecLevel: AztecCodeGenerator.ECLevelLowest
         readonly property string name: "Aztec"
         readonly property string baseName: "aztec-code"
         //: Placeholder text
