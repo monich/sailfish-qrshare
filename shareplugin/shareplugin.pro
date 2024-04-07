@@ -1,7 +1,6 @@
 TEMPLATE = lib
 TARGET = qrshareplugin
 CONFIG += plugin link_pkgconfig
-PKGCONFIG += nemotransferengine-qt5
 
 include(../config.pri)
 
