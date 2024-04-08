@@ -19,13 +19,13 @@ DEFINES += \
     QRSHARE_TRANSLATIONS_DIR=\\\"$$QRSHARE_TRANSLATIONS_DIR\\\"
 
 # Directories
-HARBOUR_LIB_DIR = $${_PRO_FILE_PWD_}/harbour-lib
+HARBOUR_LIB_DIR = ../harbour-lib
 HARBOUR_LIB_INCLUDE = $${HARBOUR_LIB_DIR}/include
 HARBOUR_LIB_SRC = $${HARBOUR_LIB_DIR}/src
-LIBAZTEC_LIB_DIR = $${_PRO_FILE_PWD_}/libaztec
+LIBAZTEC_LIB_DIR = libaztec
 LIBAZTEC_LIB_INCLUDE = $${LIBAZTEC_LIB_DIR}/include
 LIBAZTEC_LIB_SRC = $${LIBAZTEC_LIB_DIR}/src
-LIBQRENCODE_DIR = $${_PRO_FILE_PWD_}/libqrencode
+LIBQRENCODE_DIR = libqrencode
 
 # Libraries
 LIBS += libqrencode.a

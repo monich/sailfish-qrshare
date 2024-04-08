@@ -4,12 +4,17 @@ CONFIG += plugin link_pkgconfig
 
 include(../config.pri)
 
+HARBOUR_LIB_DIR = $${_PRO_FILE_PWD_}/../harbour-lib
+HARBOUR_LIB_INCLUDE = $${HARBOUR_LIB_DIR}/include
+HARBOUR_LIB_SRC = $${HARBOUR_LIB_DIR}/src
+
 QMAKE_CXXFLAGS += -Wno-unused-parameter -fvisibility=hidden
 QMAKE_CFLAGS += -fvisibility=hidden
 QMAKE_LFLAGS += -fvisibility=hidden
 
 INCLUDEPATH += \
-    transferengine
+    transferengine \
+    $${HARBOUR_LIB_INCLUDE}
 
 DEFINES += \
     QRSHARE_UI_DIR=\\\"$$QRSHARE_UI_DIR\\\" \
@@ -25,6 +30,12 @@ OTHER_FILES += \
     transferengine/transfermethodinfo.h \
     transferengine/transferplugininfo.h \
     transferengine/transferplugininterface.h
+
+HEADERS += \
+    $${HARBOUR_LIB_INCLUDE}/HarbourSystemInfo.h
+
+SOURCES += \
+    $${HARBOUR_LIB_SRC}/HarbourSystemInfo.cpp
 
 HEADERS += \
     src/qrshare.h \

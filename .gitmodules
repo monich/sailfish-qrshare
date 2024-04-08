@@ -1,5 +1,5 @@
 [submodule "harbour-lib"]
-	path = qmlplugin/harbour-lib
+	path = harbour-lib
 	url = https://github.com/monich/harbour-lib.git
 [submodule "libqrencode"]
 	path = qmlplugin/libqrencode
