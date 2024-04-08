@@ -4,7 +4,7 @@ CONFIG += plugin link_pkgconfig
 
 include(../config.pri)
 
-HARBOUR_LIB_DIR = $${_PRO_FILE_PWD_}/../harbour-lib
+HARBOUR_LIB_DIR = ../harbour-lib
 HARBOUR_LIB_INCLUDE = $${HARBOUR_LIB_DIR}/include
 HARBOUR_LIB_SRC = $${HARBOUR_LIB_DIR}/src
 
@@ -38,7 +38,7 @@ SOURCES += \
     $${HARBOUR_LIB_SRC}/HarbourSystemInfo.cpp
 
 HEADERS += \
-    src/qrshare.h \
+    qrshare.h \
     src/qrshareplugin.h \
     src/qrshareplugininfo.h \
     src/qrsharetransfer.h

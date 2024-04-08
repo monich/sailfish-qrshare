@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = qmlplugin shareplugin qrencode mkicon
+SUBDIRS = qmlplugin shareplugin shareplugin2 qrencode mkicon
 
 qmlplugin.depends = qrencode-target
 

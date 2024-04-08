@@ -22,6 +22,7 @@ BuildRequires: qt5-qttools-linguist
 %define qrshare_svg %{qrshare_datadir}/qrshare.svg
 %define qrshare_png %{qrshare_datadir}/qrshare.png
 %define qrshare_qmlplugindir %{_libdir}/qt5/qml/com/monich/qrshare
+%define transferengine_plugindir %{_libdir}/nemo-transferengine/plugins
 %define mkicon %{qrshare_qmlplugindir}/mkicon
 
 %description
@@ -53,7 +54,8 @@ if  [ -d %{qrshare_datadir_old} ] ; then rmdir %{qrshare_datadir_old} || : ; fi
 %files
 %defattr(-,root,root,-)
 %dir %{qrshare_datadir}
-%{_libdir}/nemo-transferengine/plugins/libqrshareplugin.so
+%{transferengine_plugindir}/libqrshareplugin.so
+%{transferengine_plugindir}/sharing/libqrshareplugin2.so
 %{qrshare_datadir}/translations
 %{qrshare_datadir}/unhappy.svg
 %{qrshare_datadir}/*.qml
