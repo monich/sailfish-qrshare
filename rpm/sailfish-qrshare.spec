@@ -1,6 +1,6 @@
 Name:       sailfish-qrshare
 
-Version:    1.1.2
+Version:    1.2.0
 Release:    1
 License:    BSD
 Summary:    Share plugin for generating QR and Aztec codes
